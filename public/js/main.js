@@ -3,6 +3,7 @@ const chatMessages=document.querySelector('.chat-messages');
 const roomName= document.getElementById('room-name');
 const userList= document.getElementById('users');
 
+
 //qs lib- get username and room from url
 const{username,room}=Qs.parse(location.search,{
     ignoreQueryPrefix: true
@@ -14,9 +15,11 @@ const socket=io();
 socket.emit('joinRoom',{username,room});
 
 //Get room and users
-socket.on('roomUsers',({room,users})=>{
+socket.on('roomUsers',({room,users,stam})=>{
 outputRoomName(room);
 outputUsers(users);
+outputStamName(stam);
+
 });
 
 
@@ -70,5 +73,12 @@ function outputRoomName(room){
 function outputUsers(users){
     userList.innerHTML=`
     ${users.map(user => `<li>${user.username}</li>`).join('')}`;
+
+}
+
+
+//add users to dom
+function outputStam(stam){
+    stamName = stam;
 
 }
